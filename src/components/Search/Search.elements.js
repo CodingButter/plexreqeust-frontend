@@ -28,7 +28,8 @@ export const InputContainer = styled.div`
 
 export const InputIcon = styled(Icon)`
   font-size: 14px;
-  margin: 4px 10px 0 18px;
+  margin: 4px 10px 3px 18px;
+  padding: 3px;
 `;
 
 export const Input = styled.input`
@@ -37,4 +38,8 @@ export const Input = styled.input`
   flex-grow: 1;
   height: 100%;
   outline: 0;
+  color: white;
+  &:focus {
+    color: black;
+  }
 `;

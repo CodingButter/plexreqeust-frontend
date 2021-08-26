@@ -11,10 +11,10 @@ const SVG = styled.svg`
   width: 1em;
 `;
 
-const Icon = ({ iconName }) => {
+const Icon = ({ className, iconName }) => {
   return (
     <SVG
-      className={`${iconName}-icon`}
+      className={`${className} ${iconName}-icon`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 560 560"
     >

@@ -9,22 +9,23 @@ import {
   MoviesProvider,
   SidebarProvider,
   ActivityProvider,
-  UserSettingsProvider,
+  MediaScaleProvider,
 } from "./context";
-import { Home, Movies, TV, Activity } from "./pages";
+import { Home, Movies, TV, Activity, Search } from "./pages";
 import PageContentContainer from "./components/PageContentContainer";
+import MediaDetails from "./pages/MediaDetails/MediaDetails";
 
 function App() {
   return (
     <Router>
       <ActivityProvider>
         <MoviesProvider>
-          <UserSettingsProvider>
-            <SidebarProvider>
-              <StyledApp>
-                <FullPageBackground />
-                <NavBar />
-                <FullPage>
+          <SidebarProvider>
+            <StyledApp>
+              <FullPageBackground />
+              <NavBar />
+              <FullPage>
+                <MediaScaleProvider>
                   <Sidebar />
                   <Switch>
                     <PageContentContainer className="page-content-container">
@@ -40,12 +41,21 @@ function App() {
                       <Route exact path="/activity">
                         <Activity />
                       </Route>
+                      <Route path="/search">
+                        <Search />
+                      </Route>
+                      <Route path="/movie/">
+                        <MediaDetails />
+                      </Route>
+                      <Route path="/show/">
+                        <MediaDetails />
+                      </Route>
                     </PageContentContainer>
                   </Switch>
-                </FullPage>
-              </StyledApp>
-            </SidebarProvider>
-          </UserSettingsProvider>
+                </MediaScaleProvider>
+              </FullPage>
+            </StyledApp>
+          </SidebarProvider>
         </MoviesProvider>
       </ActivityProvider>
     </Router>

@@ -1,32 +1,24 @@
 import MediaResultContainer from "../../components/MediaResultContainer/MediaResultContainer";
 import PageHeader from "../../components/PageHeader";
-import { HeaderLeft, HeaderRight } from "./Activity.elements";
 import { useActivity } from "../../context/ActivityContext";
-import {
-  useUserSettings,
-  useSetUserSettings,
-} from "../../context/UserSettingsContext";
-import { StyledSlider } from "./Activity.elements";
+import { ActiveMiniStats, ResultPageContainer } from "./Activity.elements";
 const Activity = () => {
-  const activeTorrents = useActivity();
-  const userSettings = useUserSettings();
-  const updateSettings = useSetUserSettings();
-  const handleUpdateValue = (value) => {
-    userSettings.mediaScale.value = value;
-    updateSettings(() => userSettings);
-  };
+  const { active, qued } = useActivity();
+  console.log({ active, qued });
   return (
     <>
       <PageHeader className="page-header">
-        <HeaderLeft>Activity</HeaderLeft>
-        <HeaderRight>
-          <StyledSlider
-            sliderValue={userSettings}
-            updateSliderValue={handleUpdateValue}
-          />
-        </HeaderRight>
+        <span>Activity</span>
+        <ActiveMiniStats />
       </PageHeader>
-      <MediaResultContainer medialist={activeTorrents} />
+      <ResultPageContainer className="result-page-wrap">
+        {active.length > 0 && (
+          <MediaResultContainer containerHeader="Active" medialist={active} />
+        )}
+        {qued.length > 0 && (
+          <MediaResultContainer containerHeader="Qued" medialist={qued} />
+        )}
+      </ResultPageContainer>
     </>
   );
 };

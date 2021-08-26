@@ -1,20 +1,24 @@
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
 
-const Slider = ({ sliderValue, updateSliderValue, steps = 10, angle = 0 }) => {
-  let canMove = false;
+const Slider = ({
+  sliderValue = 0.5,
+  updateSliderValue = () => {},
+  steps = 10,
+  angle = 0,
+}) => {
   const handleRef = useRef();
   const containerRef = useRef();
 
-  const handleUpdate = (value) => {
-    updateSliderValue(value);
-  };
-
   useEffect(() => {
+    var canMove = false;
+    const handleUpdate = (value) => {
+      updateSliderValue(value);
+    };
+
     if (containerRef.current && handleRef.current) {
       const container = containerRef.current;
       const handle = handleRef.current;
-
       const keyPressListener = container.addEventListener(
         "keypress",
         (e) => {}
@@ -27,23 +31,19 @@ const Slider = ({ sliderValue, updateSliderValue, steps = 10, angle = 0 }) => {
         e.preventDefault();
         canMove = false;
       });
-      const mouseMoveListener = window.addEventListener(
-        "mousemove",
-        (e) => {
-          if (canMove) {
-            const rect = container.getBoundingClientRect();
-            var normalize = 0.01 * (rect.right - rect.left);
-            var percent;
-            var limited;
-            percent = (e.clientX - rect.left) / normalize;
-            limited = Math.min(Math.max(percent, 0), 100);
-            handle.style.left = limited + "%";
-            const snapped = ~~(limited / ~~(100 / steps)) * ~~(100 / steps);
-            handleUpdate(snapped / 100);
-          }
-        },
-        [sliderValue, canMove]
-      );
+      const mouseMoveListener = window.addEventListener("mousemove", (e) => {
+        if (canMove) {
+          const rect = container.getBoundingClientRect();
+          var normalize = 0.01 * (rect.right - rect.left);
+          var percent;
+          var limited;
+          percent = (e.clientX - rect.left) / normalize;
+          limited = Math.min(Math.max(percent, 0), 100);
+          handle.style.left = limited + "%";
+          const snapped = ~~(limited / ~~(100 / steps)) * ~~(100 / steps);
+          handleUpdate(snapped / 100);
+        }
+      });
 
       return () => {
         if (container.removeListener && handleRef.removeListener) {
@@ -55,7 +55,7 @@ const Slider = ({ sliderValue, updateSliderValue, steps = 10, angle = 0 }) => {
       };
     }
     return;
-  }, []);
+  }, [steps, updateSliderValue]);
 
   return (
     <Container ref={containerRef} className="slider-container">
@@ -74,7 +74,6 @@ export default Slider;
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  margin: 10px;
   box-sizing: border-box;
   position: relative;
 `;
@@ -99,7 +98,7 @@ const Handle = styled.div`
   background: #ddd;
   margin-left: -6px;
   top: calc(50% - 6px);
-  left: ${({ sliderValue }) => sliderValue * 10}%;
+  left: ${({ sliderValue }) => sliderValue * 100}%;
   pointer-events: auto;
   position: absolute;
 `;

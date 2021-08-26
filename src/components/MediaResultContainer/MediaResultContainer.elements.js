@@ -2,27 +2,39 @@ import styled from "styled-components";
 
 export const MediaResultWrap = styled.div`
   display: contents;
+  position: relative;
 `;
 
 export const MediaContent = styled.div`
   flex-grow: 1;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-color: hsla(0, 0%, 100%, 0.2) transparent;
-  -webkit-overflow-scrolling: touch;
-  &::-webkit-scrollbar {
-    width: 14px;
+`;
+export const MediaContainerHeader = styled.h1`
+  font-size: 15px;
+  color: white;
+  padding: 0px 0px 0px 30px;
+  display: flex;
+`;
+export const HeaderWrap = styled.span`
+  padding: 5px;
+`;
+
+export const PageManager = styled.div`
+  display: flex;
+`;
+export const Button = styled.button`
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  filter: ${({ selected }) => (selected ? "invert()" : "none")};
+  &:hover {
+    filter: ${({ selected }) => (!selected ? "invert()" : "none")};
   }
-  &::-webkit-scrollbar-corner,
-  &::-webkit-scrollbar-track {
-    background-color: initial;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-clip: padding-box;
-    background-color: hsla(0, 0%, 100%, 0.2);
-    border: 3px solid transparent;
-    border-radius: 8px;
-    min-height: 50px;
-  }
+  color: var(--color-accent-background);
+  background: #1f2326;
 `;

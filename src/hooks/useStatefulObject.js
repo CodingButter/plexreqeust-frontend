@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 let statefulStorage = {};
 
 const manageStatefulObject = ({
@@ -17,14 +17,9 @@ const manageStatefulObject = ({
         action,
       });
     } else {
-      //if (!storedObject[objkey]) {
-      // const [stateValue, updateStateValue] = useState(objKeyValue);
       storedObject[objkey] = objKeyValue;
-      //storedObject[objkey] = {
-      //state: stateValue,
-      //updateState: updateStateValue,
     }
-    //}
+
     switch (action) {
       case "update":
         if (storedObject[objkey].state !== objKeyValue) {
@@ -34,7 +29,6 @@ const manageStatefulObject = ({
 
       case "values":
         difObject[objkey] = storedObject[objkey];
-        //difObject[objkey] = storedObject[objkey].state;
         break;
 
       default:
@@ -45,15 +39,10 @@ const manageStatefulObject = ({
   });
   return difObject;
 };
-export const useStatefulObject = (reference) => {
-  //const key = new Buffer(JSON.stringify(reference)).toString("base64");
-  /*const statefulObject = manageStatefulObject({
-    reference,
-  });*/
+
 
   const [stateObj, updateStateObj] = useState(() =>
     manageStatefulObject({
-      //statefulObject,
       reference,
       action: "values",
     })

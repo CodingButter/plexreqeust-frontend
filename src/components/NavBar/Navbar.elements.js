@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import MiniStats from "../MiniStats/MiniStats";
 const Side = styled.div`
   align-items: center;
   display: flex;
@@ -24,8 +24,8 @@ export const Container = styled.div`
 export const LeftSide = styled(Side)`
   padding-left: 10px;
 
-  & > a,
-  & > button {
+  & > div > a,
+  & > div > button {
     align-items: center;
     display: inline-flex;
     font-size: 20px;
@@ -35,6 +35,24 @@ export const LeftSide = styled(Side)`
   }
 `;
 
+export const ActivityButtonWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 export const RightSide = styled(Side)`
   padding-right: 17px;
+`;
+
+export const AAGMiniStats = styled(MiniStats)`
+  & > div {
+    background: hsla(0, 0%, 100%, 0.08);
+  }
+  transition: opacity 1s;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  display: ${({ show }) => (show ? "initial" : "none")};
+  opacity: ${({ show }) => (show ? 1 : 0)};
 `;

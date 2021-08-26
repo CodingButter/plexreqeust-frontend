@@ -6,7 +6,7 @@ import {
   ActivityLabel,
 } from "./ActivityButton.elements";
 const ActivityButton = () => {
-  const activity = useActivity();
+  const { active } = useActivity();
   return (
     <ActivityLink
       type="button"
@@ -14,11 +14,11 @@ const ActivityButton = () => {
       to="/activity"
       className="activity-link"
     >
-      <IconContainer className="icon-container" activity={activity.length}>
+      <IconContainer className="icon-container" activity={active.length}>
         <ActivityIcon iconName="activity"></ActivityIcon>
       </IconContainer>
-      <ActivityLabel className="activity-label" activity={activity.length}>
-        {activity.length > 0 && activity.length}
+      <ActivityLabel className="activity-label" activity={active.length}>
+        {active.length > 0 && active.length}
       </ActivityLabel>
     </ActivityLink>
   );

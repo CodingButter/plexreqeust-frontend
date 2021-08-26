@@ -1,6 +1,12 @@
 {
-  "mediaScale": {
-    "value": 0.5,
-    "steps": 10
+  "media": {
+    "mediaScale": {
+      "value": 0.5,
+      "steps": 10
+    },
+    "mediaSize": {
+      "width": 185,
+      "height": 278
+    }
   }
 }
