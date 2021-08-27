@@ -4,7 +4,6 @@ import { useActivity } from "../../context/ActivityContext";
 import { ActiveMiniStats, ResultPageContainer } from "./Activity.elements";
 const Activity = () => {
   const { active, qued } = useActivity();
-  console.log({ active, qued });
   return (
     <>
       <PageHeader className="page-header">

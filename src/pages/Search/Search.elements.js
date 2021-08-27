@@ -14,6 +14,7 @@ export const ResultPageContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+  padding-bottom: 100px;
   overflow-y: scroll;
   scrollbar-color: hsla(0, 0%, 100%, 0.2) transparent;
   -webkit-overflow-scrolling: touch;

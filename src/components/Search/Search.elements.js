@@ -4,10 +4,9 @@ import Icon from "../global/Icon";
 export const Container = styled.div`
   display: inline-block;
   height: 40px;
-  margin-left: 10px;
   position: relative;
   vertical-align: super;
-  width: 360px;
+  width: 100%;
 `;
 
 export const InputContainer = styled.div`
@@ -35,7 +34,8 @@ export const InputIcon = styled(Icon)`
 export const Input = styled.input`
   background: transparent;
   border: none;
-  flex-grow: 1;
+  width: 100%;
+  max-width: 300px;
   height: 100%;
   outline: 0;
   color: white;

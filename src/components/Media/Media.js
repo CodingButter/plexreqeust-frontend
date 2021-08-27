@@ -46,7 +46,7 @@ const Media = ({
         </BackOfCard>
       </CardWrapper>
       {rotatable && (
-        <Title to={`/${mediaType}/${media.id}`} title={media.title}>
+        <Title to={`/${mediaType}/${media.tmdb}`} title={media.title}>
           {media.title}
         </Title>
       )}

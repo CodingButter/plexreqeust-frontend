@@ -2,30 +2,36 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getMovie, getShow } from "../../services/getMedia";
 
-import MediaResultContainer from "../../components/MediaResultContainer/MediaResultContainer";
 import PageHeader from "../../components/PageHeader";
-import { ResultPageContainer } from "./MediaDetails.elements";
+import {
+  ResultPageContainer,
+  MediaDetailSection,
+  TorrentSection,
+} from "./MediaDetails.elements";
 import Media from "../../components/Media/Media";
 import settings from "../../bin/defaultsettings.json";
+import TorrentList from "../../components/TorrentList/TorrentList";
 const MediaDetails = () => {
   const [details, setDetails] = useState();
   const { pathname } = useLocation();
   const [base, mediaType, tmdb] = pathname.split("/");
-  console.log(tmdb);
-  const handleRequest = async (mediaType, tmdb) => {
-    var response;
-    switch (mediaType) {
-      case "movie":
-        response = await getMovie(tmdb);
-        break;
-      default:
-        response = await getShow(tmdb);
-        break;
-    }
-    return response;
-  };
 
   useEffect(() => {
+    console.log("rendered");
+    const handleRequest = async (mediaType, tmdb) => {
+      var response;
+
+      switch (mediaType) {
+        case "movie":
+          response = await getMovie(tmdb);
+          break;
+        default:
+          response = await getShow(tmdb);
+          break;
+      }
+
+      return response;
+    };
     handleRequest(mediaType, tmdb).then(setDetails);
     return () => {
       setDetails(null);
@@ -40,18 +46,29 @@ const MediaDetails = () => {
           <span></span>
         </PageHeader>
         <ResultPageContainer className="result-page-wrap">
-          <Media
-            media={details}
-            title={details.title}
-            poster={details.poster_path}
-            mediaScale={1}
-            mediaType={mediaType}
-            rotatable={false}
-            style={{
-              width: `${settings.media.mediaSize.width}px`,
-              height: `${settings.media.mediaSize.height}px`,
-            }}
-          />
+          <MediaDetailSection>
+            <Media
+              media={details}
+              title={details.title}
+              poster={details.poster_path}
+              mediaScale={1}
+              mediaType={mediaType}
+              rotatable={false}
+              style={{
+                width: `${settings.media.mediaSize.width}px`,
+                height: `${settings.media.mediaSize.height}px`,
+              }}
+            />
+          </MediaDetailSection>
+          <TorrentSection>
+            <TorrentList
+              mediaType={mediaType}
+              title={details.title}
+              year={details.year}
+              tmdb={tmdb}
+              poster={details.poster}
+            />
+          </TorrentSection>
         </ResultPageContainer>
       </>
     )) || <></>

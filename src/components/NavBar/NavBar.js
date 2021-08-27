@@ -2,44 +2,40 @@ import React, { useState } from "react";
 import {
   AAGMiniStats,
   ActivityButtonWrapper,
-  Container,
-  LeftSide,
-  RightSide,
+  NavbarContainer,
 } from "./Navbar.elements";
 import { Hamburger, Logo } from "../global";
 import Search from "../Search/Search";
 import ActivityButton from "../ActivityButton/ActivityButton";
+import { Container } from "../global/Containers";
 
 const NavBar = () => {
-  const [show, setShow] = useState(false);
+  const NavbarTemplate = [
+    { columns: "150px 1fr 100px", rows: "60px" },
+    { columns: "150px 1fr 100px", rows: "60px" },
+    {
+      columns: "1fr 50px",
+      rows: "0",
+      order: "2 3",
+      children: [{ display: "none" }, { width: "100%" }, {}],
+    },
+  ];
 
-  const showStats = () => {
-    console.log("showing stats");
-    setShow(true);
-  };
-  const hideStats = () => {
-    console.log("hiding Stats");
-    setShow(false);
-  };
   return (
-    <div className="nav-bar-wrapper">
-      <Container className="navbar-container">
-        <LeftSide className="left-side">
-          <Hamburger />
-          <Logo className="logo" />
-          <Search />
-        </LeftSide>
-        <RightSide className="right-side">
-          <AAGMiniStats show={show} />
-          <ActivityButtonWrapper
-            onMouseEnter={showStats}
-            onMouseLeave={hideStats}
-          >
-            <ActivityButton />
-          </ActivityButtonWrapper>
-        </RightSide>
+    <NavbarContainer template={NavbarTemplate} className="navbar-container">
+      <Container className="left-navbar-container">
+        <Hamburger />
+        <Logo className="logo" />
       </Container>
-    </div>
+      <Container className="center-navbar-container">
+        <Search />
+      </Container>
+      <Container className="right-navbar-container">
+        <ActivityButtonWrapper>
+          <ActivityButton />
+        </ActivityButtonWrapper>
+      </Container>
+    </NavbarContainer>
   );
 };
 

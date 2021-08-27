@@ -40,3 +40,33 @@ export const HeaderRight = styled(HeaderPosition)`
 
 export const StyledSlider = styled(Slider)``;
 export const ActiveMiniStats = styled(MiniStats)``;
+export const MediaDetailSection = styled.div`
+  position: relative;
+  width: 100%;
+  height: 300px;
+`;
+
+export const TorrentSection = styled.div`
+  font-size: 20px;
+  height: 500px;
+  margin: auto;
+  display: flex;
+  padding: 20px;
+  margin-bottom: 100px;
+  color: white;
+  & tr td {
+    background: #1f2326;
+  }
+  & tr {
+    background: #1f2326;
+    & td {
+      display: inline-block;
+      width: 33%;
+      text-align: left;
+      padding: 5px;
+    }
+  }
+  & tbody tr:nth-child(odd) td {
+    background: hsla(0, 0%, 100%, 0.08);
+  }
+`;

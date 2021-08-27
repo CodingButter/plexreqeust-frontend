@@ -36,6 +36,8 @@ export const ActivityProvider = ({ children }) => {
         completedLength,
         totalLength,
         length,
+        tmdb,
+        mediaType,
       }) => {
         if (length) totalLength = length;
         return {
@@ -47,6 +49,8 @@ export const ActivityProvider = ({ children }) => {
           completedLength: parseInt(completedLength),
           totalLength: parseInt(totalLength),
           status,
+          tmdb,
+          mediaType,
         };
       }
     );

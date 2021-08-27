@@ -49,7 +49,7 @@ const CardFace = styled.div`
 export const CellItem = styled.div`
   position: absolute;
   transform-origin: top left;
-  transform: translate3d(25px, 25px, 10px);
+  transform: translate3d(35px, 25px, 10px);
   //scale(${({ mediaScale }) => mediaScale});
   z-index: 0;
   width: ${({ width, mediaScale }) => mediaScale * width - 10}px;
@@ -97,6 +97,7 @@ export const Poster = styled.img`
 export const Title = styled(Link)`
   text-decoration: none;
   padding-top: 10px;
+
   display: inline-block;
   white-space: nowrap;
   cursor: inherit;

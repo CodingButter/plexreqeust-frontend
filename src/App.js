@@ -23,14 +23,16 @@ function App() {
           <SidebarProvider>
             <StyledApp>
               <FullPageBackground />
-              <NavBar />
+              <NavBar className="nav-bar" />
               <FullPage>
                 <MediaScaleProvider>
-                  <Sidebar />
+                  {
+                    //<Sidebar />
+                  }
                   <Switch>
                     <PageContentContainer className="page-content-container">
                       <Route exact path="/">
-                        <Home />
+                        <Activity />
                       </Route>
                       <Route exact path="/movies">
                         <Movies />
@@ -65,11 +67,11 @@ function App() {
 export default App;
 
 const StyledApp = styled.div`
+  width: 100vw;
+  height: 100%;
+  position: fixed;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  left: 0;
-  position: absolute;
-  right: 0;
   top: 0;
+  left: 0;
+  right: 0;
 `;

@@ -17,8 +17,8 @@ const Search = () => {
   const [showsResults, updateShowsResults] = useState({ results: [] });
 
   const { pathname } = useLocation();
-  const searchQuery = pathname.replace("/search/", "");
-
+  const [blank, blank2, searchQuery] = pathname.split("/");
+  console.log(blank, searchQuery);
   const handleRequest = async (mediaType, searchQuery, page) => {
     var response;
     switch (mediaType) {

@@ -10,6 +10,7 @@ const normalizeMedia = (result) => {
     : `https://via.placeholder.com/185x278`;
   result.release_date = result.release_date || result.first_air_date || "";
   result.year = result.release_date.split("-")[0];
+  result.tmdb = result.id;
   return result;
 };
 

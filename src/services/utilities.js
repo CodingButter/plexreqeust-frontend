@@ -21,3 +21,12 @@ export const kbConversion = (bytes) => {
   if (bytes / 1024 / 1024 < 1024)
     return ["MB/s", numberWithCommas(parseFloat(bytes / 1024 / 1024))];
 };
+
+Element.prototype.addMultiEventListener = function (events, callback) {
+  return events.map((event) => this.addEventListener(event, callback));
+};
+Element.prototype.removeMultiEventListener = function (events, eventResponses) {
+  events.map((event, index) =>
+    this.removeEventListener(event, eventResponses[index])
+  );
+};

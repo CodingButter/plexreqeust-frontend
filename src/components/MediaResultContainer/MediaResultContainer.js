@@ -27,15 +27,15 @@ const MediaResultContainer = ({
   console.log({ medialist });
   const ref = useRef();
   const [wrapWidth, setWrapWidth] = useState();
-  const mediaScale = map(useMediaScale(), 0, 1, 0.75, 1);
+  const mediaScale = map(useMediaScale(), 0, 1, 0.65, 1.25);
 
   const realSize = {
     width: settings.media.mediaSize.width * mediaScale,
     height: settings.media.mediaSize.height * mediaScale,
   };
-  const columns = Math.floor(wrapWidth / realSize.width);
+  const columns = Math.floor(wrapWidth / (realSize.width + 10));
   const wrapHeight =
-    Math.ceil(medialist.length / columns) * (realSize.height + 70) + "px";
+    Math.ceil(medialist.length / columns) * (realSize.height + 50) + "px";
   const handleResize = (e) => {
     const wrap = ref.current;
     if (wrap) {
@@ -52,8 +52,8 @@ const MediaResultContainer = ({
 
   const buildPageButtons = (currentPage, totalPages) => {
     var buttons = [];
-    var start = Math.max(1, currentPage - 2);
-    var end = Math.min(currentPage + 2, totalPages);
+    var start = Math.max(1, currentPage - 1);
+    var end = Math.min(currentPage + 1, totalPages);
     if (start > 1)
       buttons.push(
         <Button
@@ -123,6 +123,7 @@ const MediaResultContainer = ({
             }}
           >
             {medialist.map((media, index) => {
+              console.log(media);
               if (media.title)
                 return (
                   <Media
@@ -136,10 +137,11 @@ const MediaResultContainer = ({
                         settings.media.mediaSize.height * mediaScale
                       }px`,
                     }}
-                    mediaType={mediaType}
+                    mediaType={media.mediaType || mediaType}
                     mediaScale={mediaScale}
                     key={media.title + index}
                     media={media}
+                    tmdb={media.tmdb}
                   />
                 );
               return "";
