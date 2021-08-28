@@ -66,6 +66,10 @@ export const TorrentSection = styled.div`
       padding: 5px;
     }
   }
+  & tbody tr:hover {
+    filter: invert();
+    cursor: pointer;
+  }
   & tbody tr:nth-child(odd) td {
     background: hsla(0, 0%, 100%, 0.08);
   }
