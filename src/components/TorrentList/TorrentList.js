@@ -26,6 +26,7 @@ const Container = styled.div`
   position: relative;
 `;
 const TorrentList = ({ mediaType, title, year, poster, tmdb, imdb }) => {
+  console.log(mediaType);
   const [torrentList, setTorrentList] = useState([]);
   const history = useHistory();
   const sendMagnet = async (e) => {

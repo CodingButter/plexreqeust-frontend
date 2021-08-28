@@ -63,7 +63,7 @@ export const getMovieTorrents = async ({ title, year, imdb }) => {
 
 export const getShowTorrents = async ({ title, year }) => {
   const response = await fetch(
-    `${process.env.REACT_APP_PLEX_REQUEST_SERVER}/search/movies`,
+    `${process.env.REACT_APP_PLEX_REQUEST_SERVER}/search/shows`,
     {
       headers,
       method: "POST",
