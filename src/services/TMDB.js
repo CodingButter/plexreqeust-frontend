@@ -111,6 +111,9 @@ class TMDB {
       );
       result.poster_path = sizes;
     }
+    if (result.seasons) {
+      result.seasons = result.seasons.map((season) => this._fixPaths(season));
+    }
     if (result.backdrop_path) {
       const sizes = {};
       fixedPaths.logo = this.configs.images.backdrop_sizes.forEach((size) => {

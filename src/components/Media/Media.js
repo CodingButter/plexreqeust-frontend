@@ -22,7 +22,7 @@ const Media = ({
   rotatable = true,
 }) => {
   if (media.completedLength) {
-    var progress = media.completedLength / media.totalLength || 0;
+    var progress = media.completedLength / media.totalLength || 0.01;
   }
   return (
     <CellItem

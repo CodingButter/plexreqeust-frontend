@@ -54,6 +54,8 @@ const MediaDetails = () => {
               mediaScale={1}
               mediaType={mediaType}
               rotatable={false}
+              tmdb={tmdb}
+              imdb={details.imdb_id}
               style={{
                 width: `${settings.media.mediaSize.width}px`,
                 height: `${settings.media.mediaSize.height}px`,
@@ -66,6 +68,7 @@ const MediaDetails = () => {
               title={details.title}
               year={details.year}
               tmdb={tmdb}
+              imdb={details.imdb_id}
               poster={details.poster}
             />
           </TorrentSection>

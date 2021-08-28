@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getMovieTorrents, getShowTorrents } from "../../services/getMedia";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-
+import Loading from "../global/Loading";
 const TableBody = styled.tbody`
   display: block;
   overflow: auto;
@@ -20,8 +20,12 @@ const TableHeader = styled.thead`
     display: block;
   }
 `;
-
-const TorrentList = ({ mediaType, title, year, poster, tmdb }) => {
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const TorrentList = ({ mediaType, title, year, poster, tmdb, imdb }) => {
   const [torrentList, setTorrentList] = useState([]);
   const history = useHistory();
   const sendMagnet = async (e) => {
@@ -42,6 +46,7 @@ const TorrentList = ({ mediaType, title, year, poster, tmdb }) => {
         title,
         poster,
         tmdb,
+        imdb,
         magnet,
         mediaType,
       }),
@@ -52,7 +57,7 @@ const TorrentList = ({ mediaType, title, year, poster, tmdb }) => {
   const handleGetTorrents = async () => {
     const torrents =
       mediaType === "movie"
-        ? await getMovieTorrents({ title, year })
+        ? await getMovieTorrents({ title, year, imdb })
         : await getShowTorrents({ title, year });
     setTorrentList(
       torrents.map(({ title, magnet, size, seeds }) => ({
@@ -67,24 +72,29 @@ const TorrentList = ({ mediaType, title, year, poster, tmdb }) => {
     handleGetTorrents();
   }, []);
   return (
-    <Table>
-      <TableHeader>
-        <tr>
-          <td>Title</td>
-          <td>Size</td>
-          <td>Seeds</td>
-        </tr>
-      </TableHeader>
-      <TableBody>
-        {torrentList.map(({ title, magnet, size, seeds }) => (
-          <tr key={title} data-magnet={magnet} onClick={sendMagnet}>
-            <td>{title}</td>
-            <td>{size}</td>
-            <td>{seeds}</td>
-          </tr>
-        ))}
-      </TableBody>
-    </Table>
+    <Container>
+      {torrentList.length === 0 && <Loading />}
+      {torrentList.length > 0 && (
+        <Table>
+          <TableHeader>
+            <tr>
+              <td>Title</td>
+              <td>Size</td>
+              <td>Seeds</td>
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {torrentList.map(({ title, magnet, size, seeds }) => (
+              <tr key={title} data-magnet={magnet} onClick={sendMagnet}>
+                <td>{title}</td>
+                <td>{size}</td>
+                <td>{seeds}</td>
+              </tr>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </Container>
   );
 };
 
