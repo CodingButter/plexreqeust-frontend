@@ -67,18 +67,17 @@ const MediaDetails = () => {
               }}
             />
           </MediaDetailSection>
-          {mediaType === "show" && (
-            <TorrentSection>
-              <TorrentList
-                mediaType={mediaType}
-                title={details.title}
-                year={details.year}
-                tmdb={tmdb}
-                imdb={details.imdb_id}
-                poster={details.poster}
-              />
-            </TorrentSection>
-          )}
+
+          <TorrentSection>
+            <TorrentList
+              mediaType={mediaType}
+              title={details.title}
+              year={details.year}
+              tmdb={tmdb}
+              imdb={details.imdb_id}
+              poster={details.poster}
+            />
+          </TorrentSection>
         </ResultPageContainer>
       </>
     )) || <></>
