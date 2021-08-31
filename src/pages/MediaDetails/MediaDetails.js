@@ -16,11 +16,6 @@ const MediaDetails = () => {
   const { pathname } = useLocation();
   const [base, mediaType, tmdb] = pathname.split("/");
 
-  const confirmDownload = (title) => {
-    if (prompt(`Download ${title}`)) {
-    }
-  };
-
   useEffect(() => {
     console.log("rendered");
     const handleRequest = async (mediaType, tmdb) => {
@@ -76,6 +71,7 @@ const MediaDetails = () => {
               tmdb={tmdb}
               imdb={details.imdb_id}
               poster={details.poster}
+              backdrop={details.backdrop}
             />
           </TorrentSection>
         </ResultPageContainer>

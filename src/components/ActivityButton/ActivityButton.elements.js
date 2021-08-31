@@ -37,9 +37,9 @@ export const ActivityIcon = styled(Icon)`
 export const ActivityLabel = styled.span`
   font-family: Open Sans Semibold, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 11px;
-  left: 0;
+  left: 10px;
   position: absolute;
-  top: 30px;
+  top: 20px;
   color: ${({ activity }) =>
     activity > 0 ? "var(--color-accent-background)" : "inherit"};
 `;

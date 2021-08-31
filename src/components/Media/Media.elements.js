@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import TimeLine from "../TimeLine/TimeLine";
 import { Link } from "react-router-dom";
 export const CardWrapper = styled.div`
   position: relative;
@@ -24,26 +25,6 @@ const CardFace = styled.div`
   border-radius: 4px;
   backface-visibility: hidden;
   border-width: 0px;
-  &::before {
-    content: "";
-    z-index: 1000;
-    height: 20%;
-    width: 30%;
-    top: -10%;
-    right: -15%;
-    background: var(--color-accent-background);
-    position: absolute;
-    transform: rotate(45deg);
-  }
-  &::after {
-    content: "";
-    z-index: 1000;
-    height: 3px;
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
-    background: #1f2326;
-  }
 `;
 
 export const CellItem = styled.div`
@@ -70,6 +51,17 @@ export const CellItem = styled.div`
 
 export const FrontOfCard = styled(CardFace)`
   overflow: hidden;
+  &::before {
+    content: "";
+    z-index: 1000;
+    height: 20%;
+    width: 30%;
+    top: -10%;
+    right: -15%;
+    background: var(--color-accent-background);
+    position: absolute;
+    transform: rotate(45deg);
+  }
 `;
 
 export const DownloadProgress = styled(ProgressBar)`
@@ -77,14 +69,38 @@ export const DownloadProgress = styled(ProgressBar)`
   height: 9px;
   position: absolute;
   overflow: hidden;
+  z-index: 10;
   bottom: -4.5px;
   left: 0px;
   border-radius: 0px;
+`;
+export const BackDownloadProgress = styled(ProgressBar)`
+  width: 100%;
+  height: 15px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.1);
 `;
 
 export const BackOfCard = styled(CardFace)`
   transform: rotateY(180deg);
   background-color: #1f2326;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("${({ backdrop }) => backdrop}") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 0.25;
+  }
   padding: 5px;
 `;
 
@@ -96,9 +112,8 @@ export const Poster = styled.img`
 
 export const Title = styled(Link)`
   text-decoration: none;
-  padding-top: 10px;
-
-  display: inline-block;
+  padding: 3px;
+  display: block;
   white-space: nowrap;
   cursor: inherit;
   width: 75%;
@@ -107,6 +122,8 @@ export const Title = styled(Link)`
   font-weight: lighter;
   text-overflow: ellipsis;
   overflow: hidden;
+  z-index: 100;
+  border-radius: 3px;
   &:hover {
     text-decoration: underline;
   }
@@ -114,11 +131,15 @@ export const Title = styled(Link)`
 `;
 
 export const BackTitle = styled(Title)`
+  background: rgba(0, 0, 0, 0.5);
   text-overflow: initial;
   overflow: initial;
   white-space: initial;
   text-align: center;
+  display: inline-block;
   width: 100%;
+  z-index: 100;
+  color: white;
 `;
 
 export const TorrentInfo = styled.div`
@@ -130,3 +151,9 @@ export const Stat = styled.p`
   margin-bottom: 5px;
 `;
 export const StatLabel = styled.span``;
+export const StateValue = styled.span``;
+
+export const SpeedTimeLine = styled(TimeLine)`
+  width: 100%;
+  height: 30px;
+`;

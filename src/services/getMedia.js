@@ -9,6 +9,8 @@ const normalizeMedia = (result) => {
     (result.poster_path && result.poster_path["w185"]) ||
     result.poster_path ||
     `https://via.placeholder.com/185x278`;
+  result.backdrop =
+    (result.backdrop_path && result.backdrop_path["w780"]) || result.poster;
   result.release_date = result.release_date || result.first_air_date || "";
   result.year = result.release_date.split("-")[0];
   result.tmdb = result.id;

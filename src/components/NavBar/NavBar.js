@@ -1,9 +1,4 @@
-import React, { useState } from "react";
-import {
-  AAGMiniStats,
-  ActivityButtonWrapper,
-  NavbarContainer,
-} from "./Navbar.elements";
+import { ActivityButtonWrapper, NavbarContainer } from "./Navbar.elements";
 import { Hamburger, Logo } from "../global";
 import Search from "../Search/Search";
 import ActivityButton from "../ActivityButton/ActivityButton";

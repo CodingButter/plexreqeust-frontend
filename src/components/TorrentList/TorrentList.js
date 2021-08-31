@@ -25,19 +25,27 @@ const Container = styled.div`
   height: 100%;
   position: relative;
 `;
-const TorrentList = ({ mediaType, title, year, poster, tmdb, imdb }) => {
+const TorrentList = ({
+  mediaType,
+  title,
+  year,
+  poster,
+  tmdb,
+  imdb,
+  backdrop,
+}) => {
   console.log(mediaType);
   const [torrentList, setTorrentList] = useState([]);
   const history = useHistory();
+  const confirmDownload = (e) => {
+    const title = e.currentTarget.getAttribute("data-title");
+    if (window.confirm(`Download ${title}`)) {
+      sendMagnet(e);
+    }
+  };
   const sendMagnet = async (e) => {
-    console.log(e.currentTarget);
     const magnet = e.currentTarget.getAttribute("data-magnet");
-    console.log({
-      title,
-      poster,
-      tmdb,
-      magnet,
-    });
+
     await fetch(process.env.REACT_APP_PLEX_REQUEST_SERVER, {
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +58,7 @@ const TorrentList = ({ mediaType, title, year, poster, tmdb, imdb }) => {
         imdb,
         magnet,
         mediaType,
+        backdrop,
       }),
     });
     history.push("/activity");
@@ -86,7 +95,12 @@ const TorrentList = ({ mediaType, title, year, poster, tmdb, imdb }) => {
           </TableHeader>
           <TableBody>
             {torrentList.map(({ title, magnet, size, seeds }) => (
-              <tr key={title} data-magnet={magnet} onClick={sendMagnet}>
+              <tr
+                key={title}
+                data-title={title}
+                data-magnet={magnet}
+                onClick={confirmDownload}
+              >
                 <td>{title}</td>
                 <td>{size}</td>
                 <td>{seeds}</td>
