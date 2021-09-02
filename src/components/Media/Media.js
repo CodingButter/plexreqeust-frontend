@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { kbConversion } from "../../services/utilities";
+import { removeTorrent } from "../../services/manageActivity";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { Icon } from "../global";
 import {
   DownloadProgress,
   BackDownloadProgress,
@@ -16,6 +18,7 @@ import {
   Stat,
   StatLabel,
   SpeedTimeLine,
+  TrashCan,
 } from "./Media.elements";
 
 const Media = ({
@@ -26,7 +29,6 @@ const Media = ({
   className,
   rotatable = true,
 }) => {
-  console.log(media);
   if (media.completedLength) {
     var progress = media.completedLength / media.totalLength || 0.01;
   }
@@ -61,6 +63,15 @@ const Media = ({
           <Poster src={media.poster} />
         </FrontOfCard>
         <BackOfCard backdrop={media.backdrop}>
+          <TrashCan
+            data-uuid={media.uuid}
+            onClick={(e) => {
+              removeTorrent(media.uuid);
+            }}
+          >
+            {" "}
+            <Icon iconName="trashcan" />
+          </TrashCan>
           <BackTitle title={media.title}>{media.title}</BackTitle>
           {progress && (
             <BackDownloadProgress showPercent={true} progress={progress} />

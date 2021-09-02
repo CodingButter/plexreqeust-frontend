@@ -16,9 +16,9 @@ const Icon = ({ className, iconName }) => {
     <SVG
       className={`${className} ${iconName}-icon`}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 560 560"
+      viewBox={icons[iconName]["viewbox"] || "0 0 560 560"}
     >
-      <path d={icons[iconName]} />
+      <path d={icons[iconName]["d"]} />
     </SVG>
   );
 };

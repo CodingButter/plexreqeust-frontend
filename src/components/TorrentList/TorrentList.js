@@ -34,9 +34,7 @@ const TorrentList = ({
   imdb,
   backdrop,
 }) => {
-  console.log(mediaType);
   const [torrentList, setTorrentList] = useState([]);
-  const history = useHistory();
   const confirmDownload = (e) => {
     const title = e.currentTarget.getAttribute("data-title");
     if (window.confirm(`Download ${title}`)) {
@@ -45,23 +43,23 @@ const TorrentList = ({
   };
   const sendMagnet = async (e) => {
     const magnet = e.currentTarget.getAttribute("data-magnet");
-
-    await fetch(process.env.REACT_APP_PLEX_REQUEST_SERVER, {
+    const uuid = tmdb;
+    const include = {
+      title,
+      poster,
+      uuid,
+      tmdb,
+      imdb,
+      backdrop,
+    };
+    const data = { magnet, include, mediaType };
+    await fetch(`${process.env.REACT_APP_PLEX_REQUEST_SERVER}/add`, {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({
-        title,
-        poster,
-        tmdb,
-        imdb,
-        magnet,
-        mediaType,
-        backdrop,
-      }),
+      body: JSON.stringify(data),
     });
-    history.push("/activity");
   };
 
   const handleGetTorrents = async () => {

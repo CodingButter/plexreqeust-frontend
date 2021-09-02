@@ -157,3 +157,24 @@ export const SpeedTimeLine = styled(TimeLine)`
   width: 100%;
   height: 30px;
 `;
+export const TrashCan = styled.span`
+  color: white;
+  text-align: right;
+  font-size: 30px;
+  height: 35px;
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  opacity: 0.3;
+  display: block;
+  &:hover {
+    opacity: 1;
+  }
+  & > * {
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 3px;
+
+    padding: 2px;
+  }
+`;
