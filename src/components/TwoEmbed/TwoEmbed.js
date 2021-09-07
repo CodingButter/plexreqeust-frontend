@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { EmbedFrame } from "./TwoEmbed.elements";
 const TwoEmbed = ({ tmdb, mediaType, season, episode }) => {
   const [source, updateSource] = useState([]);
+  const [showPlayer, setShowPlayer] = useState(false);
   useEffect(() => {
     updateSource(
       `https://www.2embed.ru/embed/tmdb/${
@@ -11,7 +12,7 @@ const TwoEmbed = ({ tmdb, mediaType, season, episode }) => {
     );
   }, [tmdb, mediaType, season, episode]);
 
-  return <EmbedFrame src={source} />;
+  return showPlayer && <EmbedFrame allow="fullscreen" src={source} />;
 };
 
 export default TwoEmbed;
