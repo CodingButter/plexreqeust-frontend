@@ -15,9 +15,11 @@ const TwoEmbed = ({ tmdb, mediaType, season, episode }) => {
   }, [tmdb, mediaType, season, episode]);
   return (
     <>
-      {(showPlayer && <EmbedFrame allow="fullscreen" src={source} />) || (
-        <Icon iconName={"movies"} />
-      )}
+      <Icon
+        onClick={() => setShowPlayer((prev) => !prev)}
+        iconName={"movies"}
+      />
+      {showPlayer && <EmbedFrame allow="fullscreen" src={source} />}
     </>
   );
 };
