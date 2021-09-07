@@ -1,4 +1,4 @@
-var torrents = { active: [], qued: [] };
+var torrents = { active: [], queue: [] };
 const getActiveTorrents = () => {
   return torrents;
 };
@@ -26,15 +26,14 @@ const plexFetch = async () => {
     delete deconstructed.include;
     return deconstructed;
   });
-  console.log(deconstructedInfo);
   const active = deconstructedInfo.filter(
     ({ completedLength }) => completedLength > 0
   );
-  const qued = deconstructedInfo.filter(
+  const queue = deconstructedInfo.filter(
     ({ completedLength }) => completedLength === 0
   );
-  console.log({ active, qued });
-  const fetchedTorrents = { qued, active };
+  console.log({ active, queue });
+  const fetchedTorrents = { queue, active };
   if (
     JSON.stringify(torrents) !== JSON.stringify(fetchedTorrents) ||
     (torrents.active.length > 0 && fetchedTorrents.active.length === 0)

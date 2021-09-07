@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Slider from "../../components/Slider/Slider";
 import MiniStats from "../../components/MiniStats/MiniStats";
+import { Grid } from "../../components/global/Containers";
 const HeaderPosition = styled.div`
   align-items: center;
   display: flex;
@@ -43,8 +44,12 @@ export const ActiveMiniStats = styled(MiniStats)``;
 export const MediaDetailSection = styled.div`
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 600px;
 `;
+
+export const LeftSide = styled.div``;
+
+export const RightSide = styled.div``;
 
 export const TorrentSection = styled.div`
   font-size: 20px;

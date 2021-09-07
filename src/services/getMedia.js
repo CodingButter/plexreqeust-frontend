@@ -1,76 +1,23 @@
-import { getMovies as Movies, getMovieDetails } from "./getMovies";
-import { getShows as Shows, getShowDetails } from "./getShows";
-import { getPlex as Plex } from "./getPlex";
+import TMDB from "simple-tmdb";
 
-const normalizeMedia = (result) => {
-  console.log(result);
-  result.title = result.title || result.name;
-  result.poster =
-    (result.poster_path && result.poster_path["w185"]) ||
-    result.poster_path ||
-    `https://via.placeholder.com/185x278`;
-  result.backdrop =
-    (result.backdrop_path && result.backdrop_path["w780"]) || result.poster;
-  result.release_date = result.release_date || result.first_air_date || "";
-  result.year = result.release_date.split("-")[0];
-  result.tmdb = result.id;
-  if (result.seasons) {
-    result.seasons = result.seasons.map((season) => normalizeMedia(season));
-  }
-  return result;
+const tmdb = new TMDB(process.env.REACT_APP_TMDB_API_KEY);
+
+export const getMovies = async (query, page = 1) => {
+  return await tmdb.search("/movie", { query, page });
 };
 
-const normalizeMediaResults = (results) => {
-  return results.map(normalizeMedia);
-};
-export const getMovie = async (tmdb) => {
-  const response = await getMovieDetails(tmdb);
-  return normalizeMedia(response);
-};
-export const getShow = async (tmdb) => {
-  const response = await getShowDetails(tmdb);
-  return normalizeMedia(response);
-};
-export const getMovies = async (query, page) => {
-  const response = await Movies(query, page);
-  response.results = normalizeMediaResults(response.results);
-  return response;
-};
-export const getShows = async (query, page) => {
-  const response = await Shows(query, page);
-  response.results = normalizeMediaResults(response.results);
-  return response;
-};
-export const getPlex = async (query, page) => {
-  const response = await Plex(query, page);
-  response.results = normalizeMediaResults(response.results);
-  return response;
+export const getMovieDetails = async (movie_id) => {
+  return await tmdb.getDetails("/movie", movie_id);
 };
 
-const headers = {
-  "content-type": "application/json",
+export const getShows = async (query, page = 1) => {
+  return await tmdb.search("/tv", { query, page });
 };
 
-export const getMovieTorrents = async ({ title, year, imdb }) => {
-  const response = await fetch(
-    `${process.env.REACT_APP_PLEX_REQUEST_SERVER}/search/movies`,
-    {
-      headers,
-      method: "POST",
-      body: JSON.stringify({ title, year, imdb }),
-    }
-  );
-  return await response.json();
+export const getShowDetails = async (tv_id) => {
+  return await tmdb.getDetails("/tv", tv_id);
 };
 
-export const getShowTorrents = async ({ title, year }) => {
-  const response = await fetch(
-    `${process.env.REACT_APP_PLEX_REQUEST_SERVER}/search/shows`,
-    {
-      headers,
-      method: "POST",
-      body: JSON.stringify({ title, year }),
-    }
-  );
-  return await response.json();
-};
+/**
+ * @TODO Get plex server data
+ */

@@ -4,7 +4,7 @@ export const removeTorrent = async (uuid) => {
     {
       method: "POST",
       headers: {
-        type: "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({ uuid }),
     }

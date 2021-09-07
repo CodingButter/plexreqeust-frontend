@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getMovies, getShows, getPlex } from "../../services/getMedia";
+import { getMovies, getShows } from "../../services/getMedia";
 
 import MediaResultContainer from "../../components/MediaResultContainer/MediaResultContainer";
 import PageHeader from "../../components/PageHeader";
@@ -8,7 +8,7 @@ import PageHeader from "../../components/PageHeader";
 import { ResultPageContainer } from "./Search.elements";
 
 const Search = () => {
-  //const { active, qued } = useSearch();
+  //const { active, queue } = useSearch();
   //const [plexPageNumber, updateplexPageNumber] = useState(1);
   const [moviesPageNumber, updateMoviesPageNumber] = useState(1);
   const [showsPageNumber, updateShowsPageNumber] = useState(1);
@@ -23,7 +23,7 @@ const Search = () => {
     var response;
     switch (mediaType) {
       case "plex":
-        response = await getPlex(searchQuery, page);
+        // response = await getPlex(searchQuery, page);
         break;
       case "movies":
         response = await getMovies(searchQuery, page);

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getMovie, getShow } from "../../services/getMedia";
-
+import { getShowDetails, getMovieDetails } from "../../services/getMedia";
 import PageHeader from "../../components/PageHeader";
 import {
   ResultPageContainer,
   MediaDetailSection,
   TorrentSection,
+  LeftSide,
+  RightSide,
 } from "./MediaDetails.elements";
 import Media from "../../components/Media/Media";
 import settings from "../../bin/defaultsettings.json";
 import TorrentList from "../../components/TorrentList/TorrentList";
+import TwoEmbed from "../../components/TwoEmbed/TwoEmbed";
 const MediaDetails = () => {
   const [details, setDetails] = useState();
   const { pathname } = useLocation();
@@ -23,10 +25,10 @@ const MediaDetails = () => {
 
       switch (mediaType) {
         case "movie":
-          response = await getMovie(tmdb);
+          response = await getMovieDetails(tmdb);
           break;
         default:
-          response = await getShow(tmdb);
+          response = await getShowDetails(tmdb);
           break;
       }
 
@@ -47,20 +49,30 @@ const MediaDetails = () => {
         </PageHeader>
         <ResultPageContainer className="result-page-wrap">
           <MediaDetailSection>
-            <Media
-              media={details}
-              title={details.title}
-              poster={details.poster_path}
-              mediaScale={1}
-              mediaType={mediaType}
-              rotatable={false}
-              tmdb={tmdb}
-              imdb={details.imdb_id}
-              style={{
-                width: `${settings.media.mediaSize.width}px`,
-                height: `${settings.media.mediaSize.height}px`,
-              }}
-            />
+            <RightSide>
+              <TwoEmbed
+                tmdb={tmdb}
+                mediaType={mediaType}
+                season={1}
+                episode={1}
+              />
+            </RightSide>
+            <LeftSide>
+              <Media
+                media={details}
+                title={details.title}
+                poster={details.poster_path}
+                mediaScale={1}
+                mediaType={mediaType}
+                rotatable={false}
+                tmdb={tmdb}
+                imdb={details.imdb_id}
+                style={{
+                  width: `${settings.media.mediaSize.width}px`,
+                  height: `${settings.media.mediaSize.height}px`,
+                }}
+              />
+            </LeftSide>
           </MediaDetailSection>
 
           <TorrentSection>

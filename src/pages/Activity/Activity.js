@@ -4,7 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import getActiveTorrents from "../../hooks/getActiveTorrents";
 import { ActiveMiniStats, ResultPageContainer } from "./Activity.elements";
 const Activity = () => {
-  const [torrents, setTorrents] = useState({ active: [], qued: [] });
+  const [torrents, setTorrents] = useState({ active: [], queue: [] });
 
   const handleSetTorrents = () => {
     const fetchedActiveTorrents = getActiveTorrents();
@@ -34,10 +34,10 @@ const Activity = () => {
             medialist={torrents.active}
           />
         )}
-        {torrents.qued.length > 0 && (
+        {torrents.queue.length > 0 && (
           <MediaResultContainer
-            containerHeader="Qued"
-            medialist={torrents.qued}
+            containerHeader="Queue"
+            medialist={torrents.queue}
           />
         )}
       </ResultPageContainer>

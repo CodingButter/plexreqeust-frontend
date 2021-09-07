@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { getMovieTorrents, getShowTorrents } from "../../services/getMedia";
+import { getMovieTorrents, getShowTorrents } from "../../services/PlexFlex";
 import styled from "styled-components";
-import { useHistory } from "react-router";
 import Loading from "../global/Loading";
 const TableBody = styled.tbody`
   display: block;
