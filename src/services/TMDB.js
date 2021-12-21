@@ -83,6 +83,8 @@ class TMDB {
     return {
       Authorization: `Bearer ${this.request_token}`,
       "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin":"*",
+      mode: 'no-cors'      
     };
   }
 
