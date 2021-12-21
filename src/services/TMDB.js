@@ -159,4 +159,4 @@ class TMDB {
   }
 }
 
-module.exports = TMDB;
+export default TMDB;
