@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-
+const nocors = "https://server.plexflex.tv/nocors/"
 const base_url = "https://api.themoviedb.org/3";
 
 const tokenValid = (expiration) => {
@@ -92,8 +92,10 @@ class TMDB {
     const headers = this._getHeaders();
     query = { ...query, api_key: this.api_key };
     const queryString = new URLSearchParams(query);
-
-    const request = await fetch(`${base_url}${endPoint}?${queryString}`, {
+    const body = JSON.stringify({url:`{url:${base_url}${endPoint}?${queryString}`});
+    const request = await fetch(nocors,{
+      method:"POST",
+      body,
       headers,
     });
     return await request.json();
