@@ -92,7 +92,7 @@ class TMDB {
     const headers = this._getHeaders();
     query = { ...query, api_key: this.api_key };
     const queryString = new URLSearchParams(query);
-    const body = JSON.stringify({url:`{url:${base_url}${endPoint}?${queryString}`});
+    const body = JSON.stringify({url:`${base_url}${endPoint}?${queryString}`});
     const request = await fetch(nocors,{
       method:"POST",
       body,
