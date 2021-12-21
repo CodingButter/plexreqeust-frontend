@@ -1,4 +1,4 @@
-import TMDB from "simple-tmdb";
+import TMDB from "./TMDB.js";
 
 const tmdb = new TMDB(process.env.REACT_APP_TMDB_API_KEY);
 
