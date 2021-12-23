@@ -44,12 +44,15 @@ export const ActiveMiniStats = styled(MiniStats)``;
 export const MediaDetailSection = styled.div`
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 500px;
+  display:flexbox;
 `;
 
-export const LeftSide = styled.div``;
+export const LeftSide = styled.div`
+width:30%`;
 
-export const RightSide = styled.div``;
+export const RightSide = styled.div`
+width:65%`;
 
 export const TorrentSection = styled.div`
   font-size: 20px;

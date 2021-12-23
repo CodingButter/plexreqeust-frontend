@@ -49,14 +49,6 @@ const MediaDetails = () => {
         </PageHeader>
         <ResultPageContainer className="result-page-wrap">
           <MediaDetailSection>
-            <RightSide>
-              <TwoEmbed
-                tmdb={tmdb}
-                mediaType={mediaType}
-                season={1}
-                episode={1}
-              />
-            </RightSide>
             <LeftSide>
               <Media
                 media={details}
@@ -73,6 +65,14 @@ const MediaDetails = () => {
                 }}
               />
             </LeftSide>
+            <RightSide>
+              <TwoEmbed
+                tmdb={tmdb}
+                mediaType={mediaType}
+                season={1}
+                episode={1}
+              />
+            </RightSide>
           </MediaDetailSection>
 
           <TorrentSection>
