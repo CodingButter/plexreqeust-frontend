@@ -1,5 +1,5 @@
-import EventEmitter from "events";
-
+const EventEmitter = require("events");
+const nocors = "https://server.plexflex.tv/nocors/"
 const base_url = "https://api.themoviedb.org/3";
 
 const tokenValid = (expiration) => {
@@ -23,25 +23,37 @@ const fetchNewToken = async (api_key) => {
 };
 
 class TMDB {
-  constructor(api_key, options) {
+  constructor(api_key, definition) {
     this.api_key = api_key;
-    this.options = {
+
+    const defaults = {
       secure: false,
+      images: {
+        poster: {
+          default: "https://via.placeholder.com/185x278",
+          size: "w185",
+        },
+        backdrop: {
+          default: "https://via.placeholder.com/185x278",
+          size: "w780",
+        },
+      },
     };
     this.events = new EventEmitter();
+    Object.assign(this, defaults, definition);
     this._getToken();
     this._configurations();
   }
 
   async getDetails(endpoint, id) {
     const response = await this._makeRequest(`${endpoint}/${id}`);
-    return this._fixPaths(response);
+    return this._normalize(response);
   }
 
   async search(endPoint, query) {
     const response = await this._makeRequest(`/search${endPoint}`, query);
     response.results = response.results.map((result) => {
-      return this._fixPaths(result);
+      return this._normalize(result);
     });
     return response;
   }
@@ -83,6 +95,7 @@ class TMDB {
     return {
       Authorization: `Bearer ${this.request_token}`,
       "Content-Type": "application/json;charset=utf-8",
+       mode:"no-cors"
     };
   }
 
@@ -90,8 +103,10 @@ class TMDB {
     const headers = this._getHeaders();
     query = { ...query, api_key: this.api_key };
     const queryString = new URLSearchParams(query);
-
-    const request = await fetch(`${base_url}${endPoint}?${queryString}`, {
+    const body = JSON.stringify({url:`${base_url}${endPoint}?${queryString}`});
+    const request = await fetch(nocors,{
+      method:"POST",
+      body,
       headers,
     });
     return await request.json();
@@ -99,7 +114,7 @@ class TMDB {
 
   _fixPaths(result) {
     const fixedPaths = result;
-    const base_url = this.options.secure
+    const base_url = this.secure
       ? this.configs.images.secure_base_url
       : this.configs.images.base_url;
     if (result.poster_path) {
@@ -123,6 +138,26 @@ class TMDB {
     }
 
     return fixedPaths;
+  }
+
+  _normalize(result) {
+    result = this._fixPaths(result);
+    result.title = result.title || result.name;
+    result.poster =
+      (result.poster_path && result.poster_path[this.images.poster.size]) ||
+      result.poster_path ||
+      this.images.poster.default;
+    result.backdrop =
+      (result.backdrop_path &&
+        result.backdrop_path[this.images.backdrop.size]) ||
+      this.images.backdrop.default;
+    result.release_date = result.release_date || result.first_air_date || "";
+    result.year = result.release_date.split("-")[0];
+    result.tmdb = result.id;
+    if (result.seasons) {
+      result.seasons = result.seasons.map((season) => this._normalize(season));
+    }
+    return result;
   }
 }
 
